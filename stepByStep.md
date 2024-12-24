@@ -1,6 +1,16 @@
 -first create-react-app
 -setup tailwindCSS (https://tailwindcss.com/docs/guides/create-react-app)
--
+- components make inside src
+- inside app.js-- put only <Body/> compo
+- now set the routing -  npm i -D 
+react-router-dom
+- header
+- Login Form
+- Sign Up Form
+- Form Validation
+- Firebase authentication
+
+
 
 
 
@@ -10,8 +20,8 @@
 Page 1: Login Page
 Create a login page
 Requirements:
-● Email Validation: Ensure the email field is validated.
-● Messages: Display appropriate messages for login success and failure.
+● Email Validation: Ensure the email field is validated. ------------------- DONE
+● Messages: Display appropriate messages for login success and failure. -----------done for failure
 ● API Integration: Integrate with XANO for authentication.
 ● Redirection: Upon successful login, redirect the user to the Form Page.
 
@@ -20,6 +30,7 @@ Create a Forgot password page
 Requirements:
 ● Functionality: Create a simple page for users to request a password reset. No API
 integration required.
+
 Page 3: Multi-Step Form with Progreh Progress Indicator
 Requirements:
 ● Authentication: Only accessible to authenticated users.
@@ -51,3 +62,7 @@ Submission
 ● GitHub Repository: Submit your completed assignment through a GitHub URL.
 ● Form Submission: Fill out the submission form provided with the required details.
 ● Deployment: Please make sure the assignment is deployed on Netlify or Vercel
+
+
+///same css over all pages
+// the input field at centre aligned
