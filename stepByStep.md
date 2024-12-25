@@ -22,10 +22,10 @@ Create a login page
 Requirements:
 ● Email Validation: Ensure the email field is validated. ------------------- DONE
 ● Messages: Display appropriate messages for login success and failure. -----------done for failure
-● API Integration: Integrate with XANO for authentication.
+● API Integration: Integrate with XANO for authentication. ----------DONE
 ● Redirection: Upon successful login, redirect the user to the Form Page.
 
-Page 2: Forgot Password Page
+Page 2: Forgot Password Page -------------- DONE
 Create a Forgot password page
 Requirements:
 ● Functionality: Create a simple page for users to request a password reset. No API

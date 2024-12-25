@@ -1,19 +1,37 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import Select from "react-select";
-import "react-world-flags";
+import { validateFields } from "../utils/validateFields";
 
 const countryOptions = [
-  { value: "IN", label: "India", code: "+91", flag: "🇮🇳" },
-  { value: "US", label: "United States", code: "+1", flag: "🇺🇸" },
-  { value: "GB", label: "United Kingdom", code: "+44", flag: "🇬🇧" },
-  { value: "CA", label: "Canada", code: "+1", flag: "🇨🇦" },
-  { value: "AU", label: "Australia", code: "+61", flag: "🇦🇺" },
-  // Add more countries as needed
+  { value: "IN", label: "🇮🇳 India (+91)", code: "+91" },
+  { value: "US", label: "🇺🇸 United States (+1)", code: "+1" },
+  { value: "GB", label: "🇬🇧 United Kingdom (+44)", code: "+44" },
+  { value: "CA", label: "🇨🇦 Canada (+1)", code: "+1" },
+  { value: "AU", label: "🇦🇺 Australia (+61)", code: "+61" },
 ];
 
 function BasicDetails({ formData, setFormData }) {
+  const [errors, setErrors] = useState({});
+
+  const handleValidation = useCallback(() => {
+    const validationErrors = validateFields(formData);
+    setErrors(validationErrors);
+  }, [formData]);
+
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    // Debounce validation
+    const debounceValidation = setTimeout(() => {
+      handleValidation();
+    }, 500);
+
+    return () => clearTimeout(debounceValidation);
+  };
+
+  const handleCountryCodeChange = (selectedOption) => {
+    setFormData((prev) => ({ ...prev, countryCode: selectedOption.code }));
   };
 
   return (
@@ -27,6 +45,7 @@ function BasicDetails({ formData, setFormData }) {
         placeholder="Name"
         className="w-full p-2 border rounded mb-4"
       />
+      {errors.name && <p className="text-red-500">{errors.name}</p>}
       <input
         type="email"
         name="email"
@@ -35,14 +54,27 @@ function BasicDetails({ formData, setFormData }) {
         placeholder="Email"
         className="w-full p-2 border rounded mb-4"
       />
-      <input
-        type="tel"
-        name="phone"
-        value={formData.phone}
-        onChange={handleChange}
-        placeholder="Phone"
-        className="w-full p-2 border rounded"
-      />
+      {errors.email && <p className="text-red-500">{errors.email}</p>}
+      <div className="flex items-center mb-4">
+        <div className="w-1/3">
+          <Select
+            options={countryOptions}
+            defaultValue={countryOptions[0]}
+            onChange={handleCountryCodeChange}
+            className="react-select-container"
+            classNamePrefix="react-select"
+          />
+        </div>
+        <input
+          type="tel"
+          name="phone"
+          value={formData.phone}
+          onChange={handleChange}
+          placeholder="Phone"
+          className="w-2/3 p-2 border rounded"
+        />
+      </div>
+      {errors.phone && <p className="text-red-500">{errors.phone}</p>}
     </div>
   );
 }
