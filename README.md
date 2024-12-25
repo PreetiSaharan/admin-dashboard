@@ -1,3 +1,12 @@
+# PASSWORD GUIDELINE
+MUST contain 8 letters && 1 UpperCase && 1 LowerCase && 1 special character
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
