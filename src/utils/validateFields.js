@@ -25,37 +25,41 @@ export const validateFields = (formData) => {
     }
   
     // Validate Address Fields
-    if (formData.address) {
-      if (!formData.address.line1 || formData.address.line1.trim() === "") {
+  
+      if (!formData.addressLine1 || formData.addressLine1.trim() === "") {
+        console.log("is address error coming")
         errors.addressLine1 = "Address Line 1 is required.";
       }
   
-      if (!formData.address.city || formData.address.city.trim() === "") {
+      if (!formData.city || formData.city.trim() === "") {
         errors.city = "City is required.";
       }
   
-      if (!formData.address.state || formData.address.state.trim() === "") {
+      if (!formData.state || formData.state.trim() === "") {
         errors.state = "State is required.";
       }
   
-      if (!formData.address.pincode || formData.address.pincode.trim() === "") {
+      if (!formData.pincode || formData.pincode.trim() === "") {
         errors.pincode = "Pincode is required.";
-      } else if (!/^[0-9]{6}$/.test(formData.address.pincode)) {
+      } else if (!/^[0-9]{6}$/.test(formData.pincode)) {
         errors.pincode = "Enter a valid 6-digit pincode.";
       }
-    }
+    
   
     // File Upload Validation
-    if (formData.file) {
+    
       const allowedFileTypes = ["image/png", "application/pdf"];
-      if (!allowedFileTypes.includes(formData.file.type)) {
-        errors.file = "File type must be PNG or PDF.";
+      if (!allowedFileTypes.includes(formData?.singleFile?.type)) {
+        errors.singleFile = "File type must be PNG or PDF.";
       }
-    }
+    
   
     // Multi-File Upload Validation
-    if (formData.files && formData.files.length > 5) {
-      errors.files = "You can upload a maximum of 5 files.";
+    if(formData.multiFiles.length===0){
+      errors.multiFiles = "Please upload minimum 1 file.";
+    }
+    if (formData.multiFiles && formData.multiFiles.length > 5) {
+      errors.multiFiles = "You can upload a maximum of 5 files.";
     }
   
     return errors;

@@ -1,6 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { validateFields } from "../utils/validateFields";
 
-function MultiFileUpload({ formData, setFormData }) {
+function MultiFileUpload({ formData, setFormData, setIsNextDisabled }) {
+  const [errors, setErrors] = useState({});
   const handleMultiFileChange = (e) => {
     const files = Array.from(e.target.files);
     const validFiles = files.filter(
@@ -27,6 +29,15 @@ function MultiFileUpload({ formData, setFormData }) {
     );
   }, [setFormData]);
 
+  useEffect(() => {
+      const validationErrors = validateFields(formData); // Validate the form data
+      setErrors(validationErrors);
+      // Check if the form is valid
+      const isValid = Object.keys(validationErrors).length === 0;
+  
+      setIsNextDisabled(!isValid); // Disable Next button if form is not valid
+    }, [formData, setIsNextDisabled]);
+
   return (
     <div>
       <h2 className="text-xl font-semibold mb-4">Upload Multiple Files</h2>
@@ -37,6 +48,7 @@ function MultiFileUpload({ formData, setFormData }) {
         onChange={handleMultiFileChange}
         className="w-full p-2 border rounded"
       />
+       {errors.multiFiles && <span className="text-red-500">{errors.multiFiles}</span>}
       {formData.multiFiles.length > 0 && (
         <ul className="mt-4 text-sm text-gray-600">
           {formData.multiFiles.map((file, index) => (

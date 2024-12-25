@@ -27,6 +27,7 @@ function Form() {
   });
 
   const [formErrors, setFormErrors] = useState({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const navigate = useNavigate();
   // Check if the user is authenticated (i.e., has an auth token)
   useEffect(() => {
@@ -56,16 +57,16 @@ function Form() {
   const prevStep = () => setCurrentStep((prev) => prev - 1);
 
   const handleFormSubmit = async () => {
-    // API call for form submission (mocked for now)
+    setIsSubmitted(true);
     alert("Form submitted successfully!");
   };
 
   const steps = [
     <BasicDetails formData={formData} setFormData={setFormData} />,
     <Address formData={formData} setFormData={setFormData} setIsNextDisabled={setIsNextDisabled} />,
-    <FileUpload formData={formData} setFormData={setFormData} />,
-    <MultiFileUpload formData={formData} setFormData={setFormData} />,
-    <Status formData={formData} />,
+    <FileUpload formData={formData} setFormData={setFormData} setIsNextDisabled={setIsNextDisabled} />,
+    <MultiFileUpload formData={formData} setFormData={setFormData} setIsNextDisabled={setIsNextDisabled} />,
+    <Status formData={formData} isSubmitted={isSubmitted} />,
   ];
 
   return (
