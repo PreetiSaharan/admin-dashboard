@@ -1,7 +1,9 @@
 # PASSWORD GUIDELINE
 MUST contain 8 letters && 1 UpperCase && 1 LowerCase && 1 special character
 
+# URL OF THE WEBSITE (DEPLOYED ON VERCEL- AUTOMATICALLY UPDATES)
 
+https://admin-dashboard-git-master-pss-projects-2ad82d83.vercel.app/
 
 
 
