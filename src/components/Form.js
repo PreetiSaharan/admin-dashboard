@@ -24,7 +24,7 @@ function Form() {
     country: "",
     singleFile: null,
     multiFiles: [],
-    //geolocation: "",
+    geolocation: "",
   });
 
   const [formErrors, setFormErrors] = useState({});
