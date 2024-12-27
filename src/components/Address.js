@@ -11,13 +11,13 @@ function Address({ formData, setFormData, setIsNextDisabled }) {
   useEffect(() => {
     const validationErrors = validateFields(formData); // Validate the form data
     setErrors(validationErrors);
-    console.log(validationErrors);
+    //console.log(validationErrors);
 
     // Check if the form is valid
     const isValid = Object.keys(validationErrors).length === 0;
 
-    console.log(formData);
-    console.log(Object.keys(validationErrors).length);
+    
+    //console.log(Object.keys(validationErrors).length);
     setIsNextDisabled(!isValid); // Disable Next button if form is not valid
   }, [formData, setIsNextDisabled]);
 

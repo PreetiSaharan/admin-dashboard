@@ -7,6 +7,7 @@ import MultiFileUpload from "./MultiFileUpload";
 import Status from "./Status";
 import ProgressBar from "./ProgressBar";
 import { validateFields } from "../utils/validateFields"; // Import the validation function
+import { SUBMIT_URL } from "../utils/constants";
 
 function Form() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -23,7 +24,7 @@ function Form() {
     country: "",
     singleFile: null,
     multiFiles: [],
-    geolocation: "",
+    //geolocation: "",
   });
 
   const [formErrors, setFormErrors] = useState({});
@@ -57,8 +58,45 @@ function Form() {
   const prevStep = () => setCurrentStep((prev) => prev - 1);
 
   const handleFormSubmit = async () => {
-    setIsSubmitted(true);
-    alert("Form submitted successfully!");
+    const endpoint = SUBMIT_URL;
+   
+    const authToken = localStorage.getItem("authToken");
+    
+    const userpayload ={
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      city: formData.city,
+      pincode: formData.pincode
+    }
+        try {
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: {
+              "Authorization": "Bearer " + authToken,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userpayload),
+          });
+          
+          const data = await response.json();
+          
+          if (!response.ok) {
+            throw new Error(data.message || "Something went wrong");
+          }
+          
+          if(data.id){
+            
+            setIsSubmitted(true);
+            alert("Form submitted successfully!");
+            //setErrorMessage(null);
+          }
+          //navigate("/submitted");
+        } catch (error) {
+          //setErrorMessage(error.message);
+        }
+    
+    
   };
 
   const steps = [
@@ -75,14 +113,14 @@ function Form() {
       <div className="w-full max-w-2xl bg-white shadow-md rounded-lg p-6 mt-4">
         {steps[currentStep - 1]}
         <div className="flex justify-between mt-6">
-          {currentStep > 1 && (
+          {currentStep > 1 && ((!isSubmitted &&
             <button
               className="bg-gray-400 text-white py-2 px-4 rounded-lg"
               onClick={prevStep}
             >
               Back
             </button>
-          )}
+          ))}
           {currentStep < steps.length ? (
             <button
               className={`py-2 px-4 rounded-lg ${
@@ -93,14 +131,16 @@ function Form() {
             >
               Next
             </button>
-          ) : (
+          ) : ((!isSubmitted && (
             <button
               className="bg-green-500 text-white py-2 px-4 rounded-lg"
               onClick={handleFormSubmit}
+              disabled = {isSubmitted}
             >
               Submit
             </button>
-          )}
+          )
+          ))}
         </div>
       </div>
     </div>

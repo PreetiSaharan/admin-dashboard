@@ -16,7 +16,7 @@ function MultiFileUpload({ formData, setFormData, setIsNextDisabled }) {
 
     setFormData({ ...formData, multiFiles: validFiles });
   };
-
+  /*
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -28,6 +28,7 @@ function MultiFileUpload({ formData, setFormData, setIsNextDisabled }) {
       }
     );
   }, [setFormData]);
+  */
 
   useEffect(() => {
       const validationErrors = validateFields(formData); // Validate the form data
@@ -56,11 +57,13 @@ function MultiFileUpload({ formData, setFormData, setIsNextDisabled }) {
           ))}
         </ul>
       )}
+      {/*
       {formData.geolocation && (
         <p className="mt-4 text-sm text-green-600">
           Geolocation Recorded: {formData.geolocation}
         </p>
       )}
+    */}
     </div>
   );
 }

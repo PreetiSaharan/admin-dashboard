@@ -27,7 +27,7 @@ export const validateFields = (formData) => {
     // Validate Address Fields
   
       if (!formData.addressLine1 || formData.addressLine1.trim() === "") {
-        console.log("is address error coming")
+        
         errors.addressLine1 = "Address Line 1 is required.";
       }
   
